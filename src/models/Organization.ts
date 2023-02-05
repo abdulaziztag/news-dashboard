@@ -1,0 +1,30 @@
+import { model, Schema } from 'mongoose'
+import { IOrganization } from '@/interfaces/IOrganization'
+
+const organizationSchema = new Schema<IOrganization>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    linkedin: {
+      type: String,
+      required: true,
+    },
+    twitter: {
+      type: String,
+      required: true,
+    },
+    otherSources: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  },
+)
+
+export const Organization = model<IOrganization>('Organization', organizationSchema)
