@@ -1,7 +1,8 @@
 import { Schema, model } from 'mongoose'
-import { IUser } from '@/interfaces'
+import { UserModel } from '@/interfaces'
+import bcrypt from 'bcrypt'
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<UserModel>(
   {
     firstName: {
       type: String,
@@ -18,12 +19,30 @@ const userSchema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
+      set({ password }: UserModel) {
+        const salt = bcrypt.genSaltSync(10)
+        return bcrypt.hashSync(password, salt)
+      },
     },
     subscriptions: [{ type: Schema.Types.ObjectId, ref: 'Organization' }],
+    status: {
+      type: String,
+      enum: ['Pending', 'Active'],
+      default: 'Pending',
+    },
+    confirmationCode: {
+      type: String,
+      unique: true,
+    },
+    role: {
+      type: String,
+      enum: ['Admin', 'User'],
+      default: 'User',
+    },
   },
   {
     timestamps: true,
   },
 )
 
-export const User = model<IUser>('User', userSchema)
+export const User = model<UserModel>('User', userSchema)
