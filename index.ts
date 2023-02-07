@@ -21,7 +21,7 @@ mongoose.connect(mongoUrl, (error) => {
   console.log('Connected To Mongo')
 })
 app.use(passport.initialize())
-app.use(helmet)
+app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
 app.use(express.json())

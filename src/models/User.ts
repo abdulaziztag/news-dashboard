@@ -19,7 +19,7 @@ const userSchema = new Schema<UserModel>(
     password: {
       type: String,
       required: true,
-      set({ password }: UserModel) {
+      set(password: string) {
         const salt = bcrypt.genSaltSync(10)
         return bcrypt.hashSync(password, salt)
       },

@@ -80,23 +80,27 @@ export const SignUp = async (req: Request, res: Response) => {
         },
         process.env.JWT_SECRET as string,
       )
-
-      const user = new User({
+      const user = {
         firstName,
         lastName,
         email,
         password,
         confirmationCode: token,
+      }
+      const userData = new User({
+        ...user,
       })
 
-      await user.save()
+      await userData.save()
 
       const isConfirmationSent = await sendConfirmationEmail({
         ...user,
       })
 
       if (isConfirmationSent) res.send({ message: MESSAGE.PENDING })
-      else res.send({ message: MESSAGE.DEFAULT_ERROR })
+      else {
+        res.send({ message: MESSAGE.DEFAULT_ERROR })
+      }
     }
   } catch (e) {
     res.send({ message: MESSAGE.DEFAULT_ERROR }).status(HTTP_STATUS.HTTP_STATUS_INTERNAL_SERVER_ERROR)
