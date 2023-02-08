@@ -9,16 +9,16 @@ const organizationSchema = new Schema<IOrganization>(
     },
     linkedin: {
       type: String,
-      required: true,
+      required: false,
     },
     twitter: {
       type: String,
-      required: true,
+      required: false,
     },
     otherSources: [
       {
-        type: String,
-        required: true,
+        title: String,
+        src: String,
       },
     ],
   },
