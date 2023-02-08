@@ -5,4 +5,7 @@ export enum MESSAGE {
   INCORRECT_PASSWORD = 'Password is incorrect!',
   USER_ALREADY_EXIST = 'This email already exist!',
   EMAIL_CONFIRMED = 'Successfully confirmed!',
+  ORGANIZATION_ADDED = 'Organizations added to the list',
+  PERMISSION_DENIED = 'Permission denied!',
+  SUBSCRIBED = 'Successfully subscribed!',
 }
