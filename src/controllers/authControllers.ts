@@ -122,3 +122,17 @@ export const confirmEmail = async (req: Request, res: Response) => {
     res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
   }
 }
+
+export const addAdmin = async (req: Request, res: Response) => {
+  try {
+    await User.findOneAndUpdate(
+      {
+        _id: req.body.userId,
+      },
+      { role: 'Admin' },
+    )
+    res.status(200).send({ message: MESSAGE.EMAIL_CONFIRMED })
+  } catch (e) {
+    res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
+  }
+}

@@ -1,8 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import { User } from '@/models'
-import { config } from 'dotenv'
 import passport from 'passport'
-config()
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -12,8 +10,8 @@ const options = {
 passport.use(
   new JwtStrategy(options, async (payload, done) => {
     try {
-      const user = await User.findById(payload.userId).select('email _id')
-      done(null, user || false)
+      const user = await User.findById(payload.userId).select('email role _id')
+      return done(null, user || false)
     } catch (err) {
       return done(err, false)
     }
