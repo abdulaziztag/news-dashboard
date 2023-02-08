@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tscPlugin from 'vite-plugin-tsc'
 
 import path from 'path'
+
 const getAlias = (aliases: string[]): AliasOptions =>
   aliases.map((alias) => ({
     find: alias,
