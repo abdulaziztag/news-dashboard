@@ -19,6 +19,7 @@ const alias: AliasOptions = getAlias([
   'constants',
   'utils',
   'helpers',
+  'mocks',
   'state',
   'router',
   'layouts',
