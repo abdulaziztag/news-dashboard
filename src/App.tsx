@@ -1,8 +1,9 @@
-import { Button } from 'components/Generic/Button'
+import { RouterProvider } from 'react-router-dom'
+import { router } from 'router'
 function App() {
   return (
     <div className="h-full">
-      <Button>Welcome</Button>
+      <RouterProvider router={router} />
     </div>
   )
 }
