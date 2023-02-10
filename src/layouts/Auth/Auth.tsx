@@ -2,8 +2,8 @@ import { Outlet } from 'react-router-dom'
 
 export const Auth = () => {
   return (
-    <>
-      <div>Auth</div> <Outlet />
-    </>
+    <div className="bg-gray h-full">
+      <Outlet />
+    </div>
   )
 }
