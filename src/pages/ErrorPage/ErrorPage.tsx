@@ -21,7 +21,7 @@ export const ErrorPage = () => {
               </div>
               <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
                 <Link to="/">
-                  <Button variants="primary">Go back home</Button>
+                  <Button variant="primary">Go back home</Button>
                 </Link>
                 <a
                   href="#"
