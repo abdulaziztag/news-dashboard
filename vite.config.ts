@@ -21,6 +21,7 @@ const alias: AliasOptions = getAlias([
   'helpers',
   'state',
   'router',
+  'layouts',
   'interfaces',
 ])
 

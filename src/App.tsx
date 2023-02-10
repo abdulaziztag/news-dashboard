@@ -1,4 +1,4 @@
-import { Button } from 'components/Button'
+import { Button } from 'components/Generic/Button'
 function App() {
   return (
     <div className="h-full">
