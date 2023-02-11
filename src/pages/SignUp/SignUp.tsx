@@ -1,22 +1,23 @@
-import { Button } from 'components/Generic/Button'
 import { Input } from 'components/Generic/Input'
+import { Button } from 'components/Generic/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { signUpFormData } from './types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signInSchema } from './utils/schema'
-import { signInFormData } from './types'
-import { routePaths } from 'router/routes'
+import { registerUserSchema } from './utils/schema'
 import { Link } from 'react-router-dom'
+import { routePaths } from 'router/routes'
 
-export const SignIn = () => {
+export const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<signInFormData>({
-    resolver: zodResolver(signInSchema),
+  } = useForm<signUpFormData>({
+    resolver: zodResolver(registerUserSchema),
   })
 
-  const signIn: SubmitHandler<signInFormData> = (data) => {
+  const signUp: SubmitHandler<signUpFormData> = (data) => {
+    console.log(errors)
     console.log(data)
   }
 
@@ -29,7 +30,7 @@ export const SignIn = () => {
           alt="Your Company"
         />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Sign in to your account
+          Sign up
         </h2>
       </div>
 
@@ -37,11 +38,40 @@ export const SignIn = () => {
         <form className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">
+              First name
+            </label>
+            <Input
+              id="firstName"
+              placeholder="First name"
+              type="text"
+              className="mt-1"
+              {...register('firstName', { required: true })}
+            />
+            {errors.firstName && (
+              <p className="text-sm text-red-600">{errors.firstName.message}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Last name
+            </label>
+            <Input
+              id="lastName"
+              placeholder="Last name"
+              type="text"
+              className="mt-1"
+              {...register('lastName', { required: true })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <Input
               id="email"
               placeholder="Email"
+              type="email"
               className="mt-1"
               {...register('email', { required: true })}
             />
@@ -64,30 +94,30 @@ export const SignIn = () => {
             )}
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Confirm password
+            </label>
+            <Input
+              id="confirmPassword"
+              placeholder="Confirm password"
+              type="password"
+              {...register('confirmPassword')}
+            />
+            {errors.confirmPassword && (
+              <p className="text-sm text-red-600">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
 
           <Button
-            onClick={handleSubmit(signIn)}
+            onClick={handleSubmit(signUp)}
             variant="primary"
             type="button"
             className="w-full"
           >
-            Sign in
+            Sign up
           </Button>
         </form>
 
@@ -101,13 +131,13 @@ export const SignIn = () => {
             </div>
           </div>
 
-          <Link to={routePaths.signUp}>
+          <Link to={routePaths.signIn}>
             <Button
               variant="light"
               className="w-full mt-3 focus:ring-black"
               type="submit"
             >
-              Sign Up
+              Sign in
             </Button>
           </Link>
         </div>
