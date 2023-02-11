@@ -11,7 +11,7 @@ export const Button = ({
   ...restProps
 }: ButtonProps) => {
   const classes = cx(
-    'inline-flex justify-center text-white items-center rounded-md border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2',
+    'inline-flex justify-center items-center rounded-md border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2',
     className,
     ButtonSizes[size],
     ButtonVariants[variant]
