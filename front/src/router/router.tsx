@@ -4,9 +4,9 @@ import { HomePage } from 'pages/HomePage'
 import { Main } from 'layouts/Main'
 import { Auth } from 'layouts/Auth'
 import { Dashboard } from '../layouts/Dashboard'
-import { SignIn } from '../pages/SignIn'
-import { SignUp } from '../pages/SignUp'
-import { ConfirmationPage } from '../pages/ConfirmationPage'
+import { SignIn } from 'pages/SignIn'
+import { SignUp } from 'pages/SignUp'
+import { ConfirmationPage } from 'pages/ConfirmationPage'
 
 export const router = createBrowserRouter([
   {

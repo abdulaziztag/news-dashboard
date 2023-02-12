@@ -9,7 +9,7 @@ import { routePaths } from 'router/routes'
 import { useMutation } from '@tanstack/react-query'
 import { signUp } from 'api/auth'
 import { toast } from 'react-toastify'
-import { Spinner } from '../../components/Generic/Spinner'
+import { Spinner } from 'components/Generic/Spinner'
 
 export const SignUp = () => {
   const {
