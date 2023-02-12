@@ -6,6 +6,7 @@ import { Auth } from 'layouts/Auth'
 import { Dashboard } from '../layouts/Dashboard'
 import { SignIn } from '../pages/SignIn'
 import { SignUp } from '../pages/SignUp'
+import { ConfirmationPage } from '../pages/ConfirmationPage'
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignUp />,
+      },
+      {
+        path: 'confirmation/:code',
+        element: <ConfirmationPage />,
       },
     ],
   },
