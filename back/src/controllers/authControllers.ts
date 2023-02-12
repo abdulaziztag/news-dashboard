@@ -4,6 +4,8 @@ import { IUser } from '@/interfaces'
 import { User } from '@/models'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import uuid4 from 'uuid4'
+
 import { sendConfirmationEmail } from '@/utils/nodemailer'
 
 export const SignIn = async (req: Request, res: Response) => {
@@ -66,7 +68,7 @@ export const SignUp = async (req: Request, res: Response) => {
           confirmationCode: candidate.confirmationCode,
         })
 
-        if (isConfirmationSent) res.send({ message: MESSAGE.PENDING })
+        if (isConfirmationSent) res.status(200).send({ message: MESSAGE.PENDING })
         else res.send({ message: MESSAGE.DEFAULT_ERROR })
       } else {
         res.status(409).send({
@@ -74,12 +76,7 @@ export const SignUp = async (req: Request, res: Response) => {
         })
       }
     } else {
-      const token = jwt.sign(
-        {
-          email,
-        },
-        process.env.JWT_SECRET as string,
-      )
+      const token = uuid4()
       const user = {
         firstName,
         lastName,
@@ -97,10 +94,8 @@ export const SignUp = async (req: Request, res: Response) => {
         ...user,
       })
 
-      if (isConfirmationSent) res.send({ message: MESSAGE.PENDING })
-      else {
-        res.send({ message: MESSAGE.DEFAULT_ERROR })
-      }
+      if (isConfirmationSent) res.status(200).send({ message: MESSAGE.PENDING })
+      else res.send({ message: MESSAGE.DEFAULT_ERROR })
     }
   } catch (e) {
     res.send({ message: MESSAGE.DEFAULT_ERROR }).status(HTTP_STATUS.HTTP_STATUS_INTERNAL_SERVER_ERROR)
