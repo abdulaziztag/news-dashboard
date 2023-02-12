@@ -4,8 +4,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { signUpFormData } from './types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerUserSchema } from './utils/schema'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { routePaths } from 'router/routes'
+import { useMutation } from '@tanstack/react-query'
+import { signUp } from 'api/auth'
+import { toast } from 'react-toastify'
+import { Spinner } from '../../components/Generic/Spinner'
 
 export const SignUp = () => {
   const {
@@ -15,10 +19,25 @@ export const SignUp = () => {
   } = useForm<signUpFormData>({
     resolver: zodResolver(registerUserSchema),
   })
+  const navigate = useNavigate()
 
-  const signUp: SubmitHandler<signUpFormData> = (data) => {
-    console.log(errors)
-    console.log(data)
+  const { mutate, isLoading } = useMutation({
+    mutationFn: signUp,
+    onSuccess: (data) => {
+      toast(data.data.message, {
+        type: 'success',
+      })
+      navigate(routePaths.home)
+    },
+    onError: (error: Error) => {
+      toast(error.message, {
+        type: 'error',
+      })
+    },
+  })
+
+  const submitHandler: SubmitHandler<signUpFormData> = (formData) => {
+    mutate(formData)
   }
 
   return (
@@ -112,12 +131,13 @@ export const SignUp = () => {
           </div>
 
           <Button
-            onClick={handleSubmit(signUp)}
+            onClick={handleSubmit(submitHandler)}
             variant="primary"
             type="button"
             className="w-full"
+            disabled={isLoading}
           >
-            Sign up
+            {isLoading ? <Spinner /> : 'Sign up'}
           </Button>
         </form>
 
