@@ -7,6 +7,7 @@ import { Dashboard } from '../layouts/Dashboard'
 import { SignIn } from 'pages/SignIn'
 import { SignUp } from 'pages/SignUp'
 import { ConfirmationPage } from 'pages/ConfirmationPage'
+import { OrganizationPage } from '../pages/OrganizationPage'
 
 export const router = createBrowserRouter([
   {
@@ -43,5 +44,11 @@ export const router = createBrowserRouter([
     path: 'dashboard',
     element: <Dashboard />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'organization/:organizationId',
+        element: <OrganizationPage />,
+      },
+    ],
   },
 ])
