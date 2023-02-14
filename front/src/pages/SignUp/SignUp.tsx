@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query'
 import { signUp } from 'api/auth'
 import { toast } from 'react-toastify'
 import { Spinner } from 'components/Generic/Spinner'
+import { ResponseError } from 'types/ErrorsType'
 
 export const SignUp = () => {
   const {
@@ -24,13 +25,16 @@ export const SignUp = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       toast(data.data.message, {
         type: 'success',
       })
       navigate(routePaths.home)
     },
-    onError: (error: Error) => {
-      toast(error.message, {
+    onError: (error: ResponseError) => {
+      toast(error.response.data.message, {
         type: 'error',
       })
     },
@@ -134,7 +138,7 @@ export const SignUp = () => {
             onClick={handleSubmit(submitHandler)}
             variant="primary"
             type="button"
-            className="w-full"
+            className="w-full h-12"
             disabled={isLoading}
           >
             {isLoading ? <Spinner /> : 'Sign up'}

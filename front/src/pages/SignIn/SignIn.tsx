@@ -5,9 +5,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from './utils/schema'
 import { signInFormData } from './types'
 import { routePaths } from 'router/routes'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { signIn } from 'api/auth'
+import { ResponseError } from 'types/ErrorsType'
+import { toast } from 'react-toastify'
+import { Spinner } from 'components/Generic/Spinner'
+import { saveToken } from 'helpers/token'
 
 export const SignIn = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -16,10 +23,25 @@ export const SignIn = () => {
     resolver: zodResolver(signInSchema),
   })
 
-  const signIn: SubmitHandler<signInFormData> = (data) => {
-    console.log(data)
-  }
+  const { mutate, isLoading } = useMutation({
+    mutationFn: signIn,
+    onSuccess: (data) => {
+      navigate(routePaths.dashboard)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      saveToken(data.data.token)
+    },
+    onError: (error: ResponseError) => {
+      toast(error.response.data.message, {
+        type: 'error',
+      })
+    },
+  })
 
+  const submitHandler: SubmitHandler<signInFormData> = (formData) => {
+    mutate(formData)
+  }
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -64,6 +86,7 @@ export const SignIn = () => {
             )}
           </div>
 
+          {/*TODO: Remember me*/}
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -82,12 +105,12 @@ export const SignIn = () => {
           </div>
 
           <Button
-            onClick={handleSubmit(signIn)}
+            onClick={handleSubmit(submitHandler)}
             variant="primary"
             type="button"
-            className="w-full"
+            className="w-full h-12"
           >
-            Sign in
+            {isLoading ? <Spinner /> : 'Sign in'}
           </Button>
         </form>
 

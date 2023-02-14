@@ -5,8 +5,8 @@ import { confirmAccount } from 'api/auth'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Spinner } from 'components/Generic/Spinner'
 import { toast } from 'react-toastify'
-import { routePaths } from '../../router/routes'
-import { AxiosError } from 'axios'
+import { routePaths } from 'router/routes'
+import { ResponseError } from 'types/ErrorsType'
 
 export const ConfirmationPage = () => {
   const { code } = useParams()
@@ -15,10 +15,7 @@ export const ConfirmationPage = () => {
   const { isLoading } = useQuery({
     queryKey: ['confirmation', code],
     queryFn: confirmAccount,
-    onError: (err: AxiosError) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    onError: (err: ResponseError) => {
       toast(err.response.data.message, {
         type: 'error',
       })
@@ -30,6 +27,7 @@ export const ConfirmationPage = () => {
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="flex flex-col py-5 items-center sm:mx-auto sm:w-full sm:max-w-md bg-white shadow-xl sm:rounded-lg sm:px-10">
         {isLoading ? (
+          /* TODO: ChangeLoader */
           <Spinner />
         ) : (
           <>
