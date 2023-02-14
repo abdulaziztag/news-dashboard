@@ -27,18 +27,15 @@ export const SignIn = async (req: Request, res: Response) => {
             email: candidate.email,
             userId: candidate._id,
             role: candidate.role,
+            firstName: candidate.firstName,
+            lastName: candidate.lastName,
           },
           process.env.JWT_SECRET as string,
           { expiresIn: process.env.JWT_EXPIRES_IN },
         )
 
         res.status(200).send({
-          token: `Bearer ${token}`,
-          firstName: candidate.firstName,
-          lastName: candidate.lastName,
-          email: candidate.email,
-          userId: candidate._id,
-          role: candidate.role,
+          token,
         })
       } else {
         res.status(401).send({
