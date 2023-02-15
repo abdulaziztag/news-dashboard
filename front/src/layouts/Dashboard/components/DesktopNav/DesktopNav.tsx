@@ -2,6 +2,7 @@ import cx from 'classnames'
 import { Link } from 'react-router-dom'
 import { DesktopProps } from './types'
 import { ClipLoader } from 'react-spinners'
+import { colors } from 'constants/colors'
 export const DesktopNav = ({
   subscriptions,
   activeOrganization,
@@ -25,7 +26,7 @@ export const DesktopNav = ({
           <nav className="flex-1 space-y-1 px-2 pb-4">
             {loader ? (
               <div className="flex w-full justify-center mt-3">
-                <ClipLoader color="#4f46e5" size={50} />
+                <ClipLoader color={colors.primary} size={50} />
               </div>
             ) : subscriptions.length === 0 ? (
               <p className="text-base text-center font-semibold">
@@ -34,16 +35,16 @@ export const DesktopNav = ({
             ) : (
               subscriptions.map((organization) => (
                 <Link
-                  key={organization.id}
-                  to={`/dashboard/organization/${organization.id}`}
+                  key={organization._id}
+                  to={`/dashboard/organization/${organization._id}`}
                   className={cx(
-                    organization.id === activeOrganization
+                    organization._id === activeOrganization
                       ? 'bg-gray-200 text-gray-900'
                       : 'hover:bg-gray-50 hover:text-gray-900',
                     'group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600'
                   )}
                 >
-                  {organization.title}
+                  {organization.name}
                 </Link>
               ))
             )}
