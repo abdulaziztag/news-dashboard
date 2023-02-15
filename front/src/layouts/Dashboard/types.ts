@@ -1,5 +1,3 @@
-export type subscriptionsType = Array<organization>
-export type organization = {
-  title: string
-  id: string
-}
+import { SubscriptionMini } from 'interfaces/IOrganization'
+
+export type subscriptionsType = Array<SubscriptionMini>

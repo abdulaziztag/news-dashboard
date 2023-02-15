@@ -5,4 +5,5 @@ export type MobileNavProps = {
   flag: boolean
   setSidebarOpen(flag: boolean): void
   activeOrganization?: string
+  loader: boolean
 }
