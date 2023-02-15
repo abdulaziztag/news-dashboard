@@ -7,7 +7,7 @@ export const getAll = async (req: Request, res: Response) => {
     const allOrganizations = await Organization.find({})
     res.send(allOrganizations)
   } catch (e) {
-    res.send({ message: MESSAGE.DEFAULT_ERROR })
+    res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
   }
 }
 
@@ -23,15 +23,16 @@ export const addOrganization = async (req: Request, res: Response) => {
       res.send({ message: MESSAGE.PERMISSION_DENIED })
     }
   } catch (e) {
-    res.send({ message: MESSAGE.DEFAULT_ERROR })
+    res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
   }
 }
 
 export const getOrganizationSources = async (req: Request, res: Response) => {
   try {
-    const organization = await Organization.find({ _id: req.body.organizationId })
-    res.send(organization)
+    const organization = await Organization.findOne({ _id: req.body.organizationId })
+    if (organization) res.send(organization)
+    else res.send({ message: MESSAGE.ORGANIZATION_NOT_FOUND })
   } catch (e) {
-    res.send({ message: MESSAGE.DEFAULT_ERROR })
+    res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
   }
 }
