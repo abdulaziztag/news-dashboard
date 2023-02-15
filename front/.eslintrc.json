@@ -22,7 +22,8 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "@typescript-eslint/ban-ts-comment": "warn"
     },
     "settings": {
         "react": {
