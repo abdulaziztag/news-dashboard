@@ -3,5 +3,8 @@ export const endpoints = {
   signIn: '/auth/signIn',
   signUp: '/auth/signUp',
   confirm: '/auth/confirm',
-  subscriptions: 'user/subscriptions',
+  subscriptions: '/user/subscriptions',
+  subscribe: '/user/subscribe',
+  unsubscribe: '/user/unsubscribe',
+  getOrganizationInfo: '/organization/get',
 }
