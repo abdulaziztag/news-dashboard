@@ -26,11 +26,8 @@ export const SignIn = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
-      navigate(routePaths.dashboard)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       saveToken(data.data.token)
+      navigate(routePaths.dashboard)
     },
     onError: (error: ResponseError) => {
       toast(error.response.data.message, {

@@ -25,9 +25,6 @@ export const SignUp = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       toast(data.data.message, {
         type: 'success',
       })
