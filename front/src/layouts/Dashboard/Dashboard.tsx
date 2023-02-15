@@ -4,22 +4,26 @@ import { Outlet, useParams } from 'react-router-dom'
 import { DesktopNav } from './components/DesktopNav'
 import { MobileNav } from './components/MobileNav'
 import { useQuery } from '@tanstack/react-query'
-import { getSubscriptions } from '../../api/user'
+import { getSubscriptions } from 'api/user'
+import { SubscriptionMini } from 'interfaces/IOrganization'
+import { toast } from 'react-toastify'
 
 export const Dashboard = () => {
   const { organizationId } = useParams()
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [subscription, setSubscription] = useState([
-    { title: 'Facebook', id: '123' },
-  ])
+  const [subscription, setSubscription] = useState<SubscriptionMini[]>([])
 
-  const { isLoading } = useQuery({
+  const { isLoading, isRefetching } = useQuery({
     queryKey: ['subscriptions'],
     queryFn: getSubscriptions,
     onSuccess: (data) => {
-      //setSubscription(data.data)
-      console.log(data.data)
+      setSubscription(data.data.subscriptionsInfo)
+    },
+    onError: (error: TypeError) => {
+      toast(error.message, {
+        type: 'error',
+      })
     },
   })
 
@@ -31,13 +35,12 @@ export const Dashboard = () => {
           flag={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
           activeOrganization={organizationId}
+          loader={isLoading || isRefetching}
         />
-
-        {/* Static sidebar for desktop */}
         <DesktopNav
           subscriptions={subscription}
           activeOrganization={organizationId}
-          loader={isLoading}
+          loader={isLoading || isRefetching}
         />
         <div className="flex flex-1 flex-col md:pl-64">
           <Header setSidebarOpen={setSidebarOpen} />
