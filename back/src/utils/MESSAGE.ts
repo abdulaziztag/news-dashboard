@@ -8,4 +8,7 @@ export enum MESSAGE {
   ORGANIZATION_ADDED = 'Organizations added to the list',
   PERMISSION_DENIED = 'Permission denied!',
   SUBSCRIBED = 'Successfully subscribed!',
+  UNSUBSCRIBED = 'Successfully unsubscribed!',
+  ORGANIZATION_NOT_FOUND = 'Organization not found',
+  ALREADY_SUB = 'Already subscribed!',
 }
