@@ -1,6 +1,6 @@
 import { BASE_URL } from './endpoints'
 import axios from 'axios'
-import { getToken } from '../helpers/token'
+import { getToken } from 'helpers/token'
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
