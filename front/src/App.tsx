@@ -13,9 +13,8 @@ function App() {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-        retry: 1,
-        staleTime: 5 * 1000,
+        retry: 3,
+        staleTime: 0,
       },
     },
   })
