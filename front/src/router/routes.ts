@@ -3,5 +3,5 @@ export const routePaths = {
   signIn: '/auth/signin',
   signUp: '/auth/signup',
   dashboard: '/dashboard',
-  organization: '/dashboard/organization.ts',
+  organization: '/dashboard/organization',
 }

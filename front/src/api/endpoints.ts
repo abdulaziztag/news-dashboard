@@ -7,4 +7,5 @@ export const endpoints = {
   subscribe: '/user/subscribe',
   unsubscribe: '/user/unsubscribe',
   getOrganizationInfo: '/organization/get',
+  searchOrganization: '/organization/search',
 }

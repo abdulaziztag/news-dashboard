@@ -37,10 +37,9 @@ export const getOrganizationSources = async (req: Request, res: Response) => {
   }
 }
 
-
 export const searchFromOrganizations = async (req: Request, res: Response) => {
   try {
-    const results = await Organization.find({ name: { $regex: req.body.organizationName, $options: 'i' } });
+    const results = await Organization.find({ name: { $regex: req.body.organizationName, $options: 'i' } }, 'name')
     res.send(results)
   } catch (e) {
     res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })

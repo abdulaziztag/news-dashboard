@@ -1,11 +1,43 @@
-import { Bars3BottomLeftIcon, BellIcon } from '@heroicons/react/24/outline'
+import { Bars3BottomLeftIcon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Menu, Transition, Combobox } from '@headlessui/react'
+import { ChangeEvent, Fragment, useState } from 'react'
 import cx from 'classnames'
 import { HeaderProps } from './types'
+import { useMutation } from '@tanstack/react-query'
+import { searchOrganization } from 'api/organization'
+import { SubscriptionMini } from 'interfaces'
+import { ClipLoader } from 'react-spinners'
+import { colors } from 'constants/colors'
+import { routePaths } from 'router/routes'
+import { useNavigate } from 'react-router-dom'
+import { searchInputPromise } from 'helpers/searchInputPromise'
 
 export const Header = ({ setSidebarOpen }: HeaderProps) => {
+  const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
+  const [foundOrganizations, setFoundOrganizations] = useState<
+    SubscriptionMini[]
+  >([])
+
+  const searchMutation = useMutation({
+    mutationFn: searchOrganization,
+    onSuccess: (data) => {
+      setFoundOrganizations(data.data)
+    },
+  })
+
+  const searchInputHandler = async (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value
+    await searchInputPromise(event.target)
+    inputValue.trim() !== '' && searchMutation.mutate(event.target.value)
+  }
+
+  const goToOrganization = (id: string) => {
+    navigate(`${routePaths.organization}/${id}`)
+    setIsOpen(false)
+  }
+
   const userNavigation = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
@@ -23,35 +55,54 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
         <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
       </button>
       <div className="flex flex-1 justify-between px-4">
-        <div className="flex flex-1">
-          <form className="flex w-full md:ml-0" action="#" method="GET">
-            <label htmlFor="search-field" className="sr-only">
-              Search
-            </label>
-            <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <input
-                id="search-field"
-                className="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:placeholder-gray-400 focus:outline-none focus:ring-0 sm:text-sm"
-                placeholder="Search"
-                type="search"
-                name="search"
+        <div className="flex-col flex-1 w-full h-full">
+          <Combobox>
+            <div className="w-full h-full flex items-center">
+              <MagnifyingGlassIcon
+                className="pointer-events-none absolute h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+              <Combobox.Input
+                className="h-full w-full border-0 px-9 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                placeholder="Search..."
+                onFocus={() => setIsOpen(true)}
+                onChange={(event) => searchInputHandler(event)}
               />
             </div>
-          </form>
+            <Combobox.Options
+              static
+              className="max-h-72 scroll-py-2 overflow-y-auto mx-2 text-sm text-gray-800 bg-gray-100 rounded-b-2xl shadow-lg"
+            >
+              {isOpen &&
+                (searchMutation.isLoading ? (
+                  <div className="text-xl text-center">
+                    <ClipLoader size={60} color={colors.primary} />
+                  </div>
+                ) : foundOrganizations.length !== 0 ? (
+                  foundOrganizations.map((organization) => (
+                    <Combobox.Option
+                      key={organization._id}
+                      value={organization.name}
+                      onClick={() => goToOrganization(organization._id)}
+                      className={({ active }) =>
+                        cx(
+                          'cursor-default select-none px-4 py-4',
+                          active && 'bg-indigo-600 text-white'
+                        )
+                      }
+                    >
+                      {organization.name}
+                    </Combobox.Option>
+                  ))
+                ) : (
+                  <div className="text-xl text-center">
+                    No organizations found
+                  </div>
+                ))}
+            </Combobox.Options>
+          </Combobox>
         </div>
         <div className="ml-4 flex items-center md:ml-6">
-          <button
-            type="button"
-            className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <span className="sr-only">View notifications</span>
-            <BellIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
-
-          {/* Profile dropdown */}
           <Menu as="div" className="relative ml-3">
             <div>
               <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
