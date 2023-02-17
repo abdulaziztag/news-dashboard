@@ -7,10 +7,11 @@ import { ClipLoader } from 'react-spinners'
 import { colors } from 'constants/colors'
 import { toast } from 'react-toastify'
 import { getSubscriptions, subscribe, unsubscribe } from 'api/user'
-import { Button } from 'components/Generic/Button'
-
+import { MainContent } from './components/MainContent'
 export const OrganizationPage = () => {
-  const { organizationId } = useParams()
+  const { organizationId } = useParams<keyof { organizationId: string }>() as {
+    organizationId: string
+  }
   const [organization, setOrganization] = useState<Organization>()
   const [subscriptions, setSubscriptions] = useState<string[]>([])
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
@@ -23,7 +24,6 @@ export const OrganizationPage = () => {
       setIsSubscribed(
         data.data.subscriptionsInfo
           .map((sub) => sub._id)
-          // @ts-ignore
           .includes(organizationId)
       )
     },
@@ -43,7 +43,7 @@ export const OrganizationPage = () => {
     },
   })
 
-  const { isFetching } = useQuery({
+  const { isFetching, isLoading } = useQuery({
     queryKey: ['organization', organizationId],
     queryFn: getOrganizationById,
     onSuccess: (data) => {
@@ -64,25 +64,18 @@ export const OrganizationPage = () => {
   }
 
   return (
-    <div className="flex justify-center">
-      {isFetching ? (
+    <div className="flex justify-center w-full">
+      {isFetching || isLoading ? (
         <ClipLoader size={150} color={colors.primary} />
       ) : (
-        <div>
-          {organization?.name} {organization?.linkedin}
-          <Button
-            variant={isSubscribed ? 'info' : 'success'}
-            onClick={toggleSubscription}
-          >
-            {unsubscribeMutation.isLoading || subscribeMutation.isLoading ? (
-              <ClipLoader color={colors.white} />
-            ) : isSubscribed ? (
-              'Subscribed'
-            ) : (
-              'Subscribe'
-            )}
-          </Button>
-        </div>
+        <MainContent
+          isLoading={
+            unsubscribeMutation.isLoading || subscribeMutation.isLoading
+          }
+          organization={organization}
+          isSubscribed={isSubscribed}
+          toggleSubscription={toggleSubscription}
+        />
       )}
     </div>
   )
