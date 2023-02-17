@@ -15,7 +15,6 @@ import { searchInputPromise } from 'helpers/searchInputPromise'
 
 export const Header = ({ setSidebarOpen }: HeaderProps) => {
   const navigate = useNavigate()
-  const [isOpen, setIsOpen] = useState(false)
   const [foundOrganizations, setFoundOrganizations] = useState<
     SubscriptionMini[]
   >([])
@@ -35,7 +34,6 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
 
   const goToOrganization = (id: string) => {
     navigate(`${routePaths.organization}/${id}`)
-    setIsOpen(false)
   }
 
   const userNavigation = [
@@ -65,40 +63,35 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
               <Combobox.Input
                 className="h-full w-full border-0 px-9 placeholder-gray-400 focus:ring-0 sm:text-sm"
                 placeholder="Search..."
-                onFocus={() => setIsOpen(true)}
                 onChange={(event) => searchInputHandler(event)}
               />
             </div>
-            <Combobox.Options
-              static
-              className="max-h-72 scroll-py-2 overflow-y-auto mx-2 text-sm text-gray-800 bg-gray-100 rounded-b-2xl shadow-lg"
-            >
-              {isOpen &&
-                (searchMutation.isLoading ? (
-                  <div className="text-xl text-center">
-                    <ClipLoader size={60} color={colors.primary} />
-                  </div>
-                ) : foundOrganizations.length !== 0 ? (
-                  foundOrganizations.map((organization) => (
-                    <Combobox.Option
-                      key={organization._id}
-                      value={organization.name}
-                      onClick={() => goToOrganization(organization._id)}
-                      className={({ active }) =>
-                        cx(
-                          'cursor-default select-none px-4 py-4',
-                          active && 'bg-indigo-600 text-white'
-                        )
-                      }
-                    >
-                      {organization.name}
-                    </Combobox.Option>
-                  ))
-                ) : (
-                  <div className="text-xl text-center">
-                    No organizations found
-                  </div>
-                ))}
+            <Combobox.Options className="max-h-72 scroll-py-2 overflow-y-auto mx-2 text-sm text-gray-800 bg-gray-100 rounded-b-2xl shadow-lg">
+              {searchMutation.isLoading ? (
+                <div className="text-xl text-center py-3">
+                  <ClipLoader size={60} color={colors.primary} />
+                </div>
+              ) : foundOrganizations.length !== 0 ? (
+                foundOrganizations.map((organization) => (
+                  <Combobox.Option
+                    key={organization._id}
+                    value={organization.name}
+                    onClick={() => goToOrganization(organization._id)}
+                    className={({ active }) =>
+                      cx(
+                        'cursor-default select-none px-4 py-4',
+                        active && 'bg-indigo-600 text-white'
+                      )
+                    }
+                  >
+                    {organization.name}
+                  </Combobox.Option>
+                ))
+              ) : (
+                <div className="text-xl text-center py-3">
+                  No organizations found
+                </div>
+              )}
             </Combobox.Options>
           </Combobox>
         </div>
