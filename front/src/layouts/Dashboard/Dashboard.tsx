@@ -44,17 +44,14 @@ export const Dashboard = () => {
         />
         <div className="flex flex-1 flex-col md:pl-64">
           <Header setSidebarOpen={setSidebarOpen} />
-          <main className="flex-1">
-            <div className="py-6">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  Dashboard
-                </h1>
-              </div>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <Outlet />
-              </div>
-            </div>
+          <main className="flex-1 py-6 mx-auto max-w-[86rem] px-4 sm:px-6 md:px-8">
+            {/* Don't touch it, it's my signature :) */}
+            <p className="text-white">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Accusamus aperiam dignissimos fuga illum labore laborum modi
+              officiis voluptas? Amet corporis cumque ducimus illo obcaecati
+            </p>
+            <Outlet />
           </main>
         </div>
       </div>
