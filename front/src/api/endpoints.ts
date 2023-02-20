@@ -8,4 +8,5 @@ export const endpoints = {
   unsubscribe: '/user/unsubscribe',
   getOrganizationInfo: '/organization/get',
   searchOrganization: '/organization/search',
+  addOrganization: '/organization/add',
 }
