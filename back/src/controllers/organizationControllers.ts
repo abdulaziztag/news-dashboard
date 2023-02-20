@@ -15,14 +15,19 @@ export const addOrganization = async (req: Request, res: Response) => {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if (req?.user.role === 'Admin') {
-      await Organization.insertMany(req.body)
-
-      res.send({ message: MESSAGE.ORGANIZATION_ADDED })
-    } else {
-      res.send({ message: MESSAGE.PERMISSION_DENIED })
+    /*if (req?.user.role === 'Admin') {*/
+    const organization = await Organization.findOne({ name: req.body.organizationName })
+    if (organization) res.send({ message: MESSAGE.USER_ALREADY_EXIST })
+    else {
+      const addedOrganizations = await Organization.insertMany(req.body)
+      res.send({ message: MESSAGE.ORGANIZATION_ADDED, organizationsIds: addedOrganizations.map((doc) => doc._id) })
     }
+
+    /*} else {
+      res.send({ message: MESSAGE.PERMISSION_DENIED })
+    }*/
   } catch (e) {
+    console.log(e)
     res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
   }
 }
