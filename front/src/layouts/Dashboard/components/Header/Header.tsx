@@ -12,9 +12,13 @@ import { colors } from 'constants/colors'
 import { routePaths } from 'router/routes'
 import { useNavigate } from 'react-router-dom'
 import { searchInputPromise } from 'helpers/searchInputPromise'
+import { ModalDialog } from 'components/Generic/ModalDialog'
+import { Button } from 'components/Generic/Button'
+import { AddOrganization } from 'components/DialogContents/AddOrganization'
 
 export const Header = ({ setSidebarOpen }: HeaderProps) => {
   const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [foundOrganizations, setFoundOrganizations] = useState<
     SubscriptionMini[]
   >([])
@@ -44,6 +48,14 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
 
   return (
     <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
+      <ModalDialog
+        isOpen={isOpen}
+        title={'Add organization'}
+        body={<AddOrganization onClose={() => setIsOpen(false)} />}
+        actions={true}
+        onClose={() => setIsOpen(false)}
+      />
+
       <button
         type="button"
         className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -88,8 +100,15 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
                   </Combobox.Option>
                 ))
               ) : (
-                <div className="text-xl text-center py-3">
+                <div className="text-xl flex-col items-center gap-y-2 py-3 flex">
                   No organizations found
+                  <Button
+                    variant="light"
+                    size="sm"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Add organization
+                  </Button>
                 </div>
               )}
             </Combobox.Options>
