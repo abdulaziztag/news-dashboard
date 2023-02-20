@@ -2,7 +2,7 @@ import { Organization } from 'interfaces'
 
 export type MainContentProps = {
   isLoading: boolean
-  organization?: Organization
+  organization: Organization
   isSubscribed: boolean
   toggleSubscription: () => void
 }

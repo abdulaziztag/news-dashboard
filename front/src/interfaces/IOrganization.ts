@@ -6,5 +6,5 @@ export interface SubscriptionMini {
 export interface Organization extends SubscriptionMini {
   linkedin: string
   twitter: string
-  otherSources: [object]
+  otherSources: []
 }
