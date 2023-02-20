@@ -20,7 +20,7 @@ export const DesktopNav = ({
           />
         </div>
         <div className="mt-5 flex flex-grow flex-col">
-          <div className="border-b-2 border-b-gray-300 my-1 px-1 mx-2 text-gray-500">
+          <div className="border-b-2 border-b-gray-300 text-xl pb-2 my-1 px-1 mx-2 text-gray-500">
             Your subscriptions
           </div>
           <nav className="flex-1 space-y-1 px-2 pb-4">
