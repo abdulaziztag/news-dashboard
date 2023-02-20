@@ -8,6 +8,7 @@ import { colors } from 'constants/colors'
 import { toast } from 'react-toastify'
 import { getSubscriptions, subscribe, unsubscribe } from 'api/user'
 import { MainContent } from './components/MainContent'
+
 export const OrganizationPage = () => {
   const { organizationId } = useParams<keyof { organizationId: string }>() as {
     organizationId: string
@@ -68,14 +69,16 @@ export const OrganizationPage = () => {
       {isFetching || isLoading ? (
         <ClipLoader size={150} color={colors.primary} />
       ) : (
-        <MainContent
-          isLoading={
-            unsubscribeMutation.isLoading || subscribeMutation.isLoading
-          }
-          organization={organization}
-          isSubscribed={isSubscribed}
-          toggleSubscription={toggleSubscription}
-        />
+        organization && (
+          <MainContent
+            isLoading={
+              unsubscribeMutation.isLoading || subscribeMutation.isLoading
+            }
+            organization={organization}
+            isSubscribed={isSubscribed}
+            toggleSubscription={toggleSubscription}
+          />
+        )
       )}
     </div>
   )
