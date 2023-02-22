@@ -3,18 +3,18 @@ import { formatDate } from 'helpers/formatDate'
 import { ClipLoader } from 'react-spinners'
 import { colors } from 'constants/colors'
 import { useQuery } from '@tanstack/react-query'
-import { getSourceFromBing } from '../../../../api/organization'
+import { getSourceFromBing } from 'api/organization'
 
 export const BingNewsContainer = ({
   containerTitle,
   organization,
   domain,
 }: bingNewsContainerProps) => {
-  console.log(organization)
   const { data, error, isLoading, isRefetching } = useQuery({
     queryKey: [domain, organization.name, domain],
     queryFn: getSourceFromBing,
     retry: 0,
+    staleTime: Infinity,
   })
 
   return (
