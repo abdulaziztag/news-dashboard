@@ -4,24 +4,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ToastContainer } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
-import { useEffect } from 'react'
-import { getToken } from 'helpers/token/'
-import jwtDecode from 'jwt-decode'
 
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        retry: 3,
+        retry: 0,
         staleTime: 0,
       },
     },
-  })
-
-  useEffect(() => {
-    const { token } = getToken()
-    //console.log(jwtDecode(token))
   })
 
   return (

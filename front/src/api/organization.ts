@@ -6,7 +6,7 @@ import { SearchResponse } from 'types/BingResponseType'
 import axios from 'axios'
 import { addOrganizationForm } from '../components/DialogContents/AddOrganization'
 
-const bingAPI = 'a2a1e2c477914c0f845645742d9f2f80'
+const bingAPI = '8943ddf85aa1412aaf0836799466e654'
 
 export const getOrganizationById = async ({
   queryKey,
@@ -41,6 +41,7 @@ export const getSourceFromBing = async ({ queryKey }: QueryFunctionContext) => {
         mkt: 'en-US',
         safeSearch: 'Moderate',
         category: 'News',
+        freshness: 'Month',
       },
     }
   )
