@@ -3,11 +3,11 @@ import { ErrorPage } from 'pages/ErrorPage'
 import { HomePage } from 'pages/HomePage'
 import { Main } from 'layouts/Main'
 import { Auth } from 'layouts/Auth'
-import { Dashboard } from '../layouts/Dashboard'
+import { Dashboard } from 'layouts/Dashboard'
 import { SignIn } from 'pages/SignIn'
 import { SignUp } from 'pages/SignUp'
 import { ConfirmationPage } from 'pages/ConfirmationPage'
-import { OrganizationPage } from '../pages/OrganizationPage'
+import { OrganizationPage } from 'pages/OrganizationPage'
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +45,10 @@ export const router = createBrowserRouter([
     element: <Dashboard />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: '',
+        element: <div>Profile</div>,
+      },
       {
         path: 'organization/:organizationId',
         element: <OrganizationPage />,
