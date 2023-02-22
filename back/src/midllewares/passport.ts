@@ -10,7 +10,7 @@ const options = {
 passport.use(
   new JwtStrategy(options, async (payload, done) => {
     try {
-      const user = await User.findById(payload.userId).select('email role _id')
+      const user = await User.findById(payload.userId).select('email firstName lastName role _id')
       return done(null, user || false)
     } catch (err) {
       return done(err, false)
