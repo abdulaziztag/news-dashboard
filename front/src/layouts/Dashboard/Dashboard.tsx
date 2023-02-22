@@ -1,18 +1,35 @@
 import { useState } from 'react'
 import { Header } from './components/Header'
-import { Outlet, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { DesktopNav } from './components/DesktopNav'
 import { MobileNav } from './components/MobileNav'
 import { useQuery } from '@tanstack/react-query'
 import { getSubscriptions } from 'api/user'
 import { SubscriptionMini } from 'interfaces/IOrganization'
 import { toast } from 'react-toastify'
+import { checkAuth } from 'api/auth'
 
 export const Dashboard = () => {
   const { organizationId } = useParams()
-
+  const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [subscription, setSubscription] = useState<SubscriptionMini[]>([])
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+  useQuery({
+    queryKey: ['checkAuth'],
+    queryFn: checkAuth,
+    onSuccess: () => {
+      setIsLoggedIn(true)
+    },
+    onError: () => {
+      toast('Please sign in', {
+        type: 'error',
+      })
+      navigate('/auth/signin')
+    },
+    staleTime: Infinity,
+  })
 
   const { isLoading, isRefetching } = useQuery({
     queryKey: ['subscriptions'],
@@ -25,6 +42,7 @@ export const Dashboard = () => {
         type: 'error',
       })
     },
+    enabled: isLoggedIn,
   })
 
   return (

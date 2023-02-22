@@ -5,8 +5,16 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { navigation } from 'mocks'
 import { Fragment } from 'react'
 import { Button } from 'components/Generic/Button'
+import { ClipLoader } from 'react-spinners'
+import { colors } from 'constants/colors'
 
-export const Header = () => {
+export const Header = ({
+  isLoggedIn,
+  isLoading,
+}: {
+  isLoggedIn: boolean
+  isLoading: boolean
+}) => {
   return (
     <Popover as="header" className="relative">
       <div className="bg-gray-900 pt-6">
@@ -44,18 +52,31 @@ export const Header = () => {
             </div>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <Link
-              to={routePaths.signIn}
-              className="text-base font-medium text-white hover:text-gray-300"
-            >
-              Sign In
-            </Link>
-            <Link
-              to={routePaths.signUp}
-              className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
-            >
-              SignUp
-            </Link>
+            {isLoading ? (
+              <ClipLoader color={colors.white} />
+            ) : !isLoggedIn ? (
+              <>
+                <Link
+                  to={routePaths.signIn}
+                  className="text-base font-medium text-white hover:text-gray-300"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to={routePaths.signUp}
+                  className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
+                >
+                  SignUp
+                </Link>
+              </>
+            ) : (
+              <Link
+                to={routePaths.dashboard}
+                className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
+              >
+                Dashboard
+              </Link>
+            )}
           </div>
         </nav>
       </div>

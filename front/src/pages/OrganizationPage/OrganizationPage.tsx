@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { getOrganizationById } from 'api/organization'
 import { useState } from 'react'
@@ -8,14 +8,29 @@ import { colors } from 'constants/colors'
 import { toast } from 'react-toastify'
 import { getSubscriptions, subscribe, unsubscribe } from 'api/user'
 import { MainContent } from './components/MainContent'
+import { checkAuth } from 'api/auth'
+import { routePaths } from 'router/routes'
 
 export const OrganizationPage = () => {
   const { organizationId } = useParams<keyof { organizationId: string }>() as {
     organizationId: string
   }
+  const navigate = useNavigate()
   const [organization, setOrganization] = useState<Organization>()
   const [subscriptions, setSubscriptions] = useState<string[]>([])
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+  useQuery({
+    queryKey: ['checkAuth'],
+    queryFn: checkAuth,
+    onSuccess: () => {
+      setIsLoggedIn(true)
+    },
+    onError: () => {
+      navigate('/auth/signin')
+    },
+  })
 
   const subsQuery = useQuery({
     queryKey: ['subscriptions'],
@@ -28,6 +43,8 @@ export const OrganizationPage = () => {
           .includes(organizationId)
       )
     },
+    enabled: isLoggedIn,
+    staleTime: Infinity,
   })
 
   const subscribeMutation = useMutation({
@@ -55,6 +72,7 @@ export const OrganizationPage = () => {
       toast(error.message, {
         type: 'error',
       })
+      navigate(routePaths.dashboard)
     },
     enabled: subsQuery.isFetched,
   })

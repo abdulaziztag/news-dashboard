@@ -4,6 +4,7 @@ import { QueryFunctionContext } from '@tanstack/react-query'
 import axiosInstance from './axiosInstance'
 import { signInFormData } from 'pages/SignIn'
 import { SimpleMessageType } from 'types/SimpleMessageType'
+import { IUser } from 'interfaces'
 
 export const signUp = async ({
   firstName,
@@ -30,4 +31,8 @@ export const confirmAccount = async ({ queryKey }: QueryFunctionContext) => {
   return await axiosInstance.post<SimpleMessageType>(endpoints.confirm, {
     confirmationCode: queryKey[1],
   })
+}
+
+export const checkAuth = async () => {
+  return await axiosInstance.get<IUser>(endpoints.checkUser)
 }
