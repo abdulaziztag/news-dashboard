@@ -71,9 +71,10 @@ export const OrganizationPage = () => {
       ) : (
         organization && (
           <MainContent
-            isLoading={
+            subscriptionLoader={
               unsubscribeMutation.isLoading || subscribeMutation.isLoading
             }
+            organizationLoader={isFetching || isLoading}
             organization={organization}
             isSubscribed={isSubscribed}
             toggleSubscription={toggleSubscription}

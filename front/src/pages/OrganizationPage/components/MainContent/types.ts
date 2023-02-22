@@ -1,8 +1,9 @@
 import { Organization } from 'interfaces'
 
 export type MainContentProps = {
-  isLoading: boolean
-  organization: Organization
   isSubscribed: boolean
+  organization: Organization
+  subscriptionLoader: boolean
+  organizationLoader: boolean
   toggleSubscription: () => void
 }

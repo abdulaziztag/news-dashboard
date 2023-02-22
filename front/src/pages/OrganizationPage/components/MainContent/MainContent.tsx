@@ -7,7 +7,8 @@ import { RefObject, useLayoutEffect, useRef, useState } from 'react'
 import { BingNewsContainer } from '../BingNewsContainer'
 
 export const MainContent = ({
-  isLoading,
+  subscriptionLoader,
+  organizationLoader,
   isSubscribed,
   organization,
   toggleSubscription,
@@ -33,18 +34,20 @@ export const MainContent = ({
         <h1 className="text-2xl font-bold text-gray-900 capital">
           {organization?.name}
         </h1>
-        <Button
-          variant={isSubscribed ? 'info' : 'success'}
-          onClick={toggleSubscription}
-        >
-          {isLoading ? (
-            <ClipLoader color={colors.white} />
-          ) : isSubscribed ? (
-            'Subscribed'
-          ) : (
-            'Subscribe'
-          )}
-        </Button>
+        {!organizationLoader && (
+          <Button
+            variant={isSubscribed ? 'info' : 'success'}
+            onClick={toggleSubscription}
+          >
+            {subscriptionLoader ? (
+              <ClipLoader color={colors.white} />
+            ) : isSubscribed ? (
+              'Subscribed'
+            ) : (
+              'Subscribe'
+            )}
+          </Button>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-2 2xl:grid-cols-6">
@@ -75,7 +78,7 @@ export const MainContent = ({
             domain="techcrunch.com"
           />
         </div>
-        {/*<div className="w-full border-2 col-span-3 overflow-y-auto h-[600px] pb-2 rounded-xl relative">
+        <div className="w-full border-2 col-span-3 overflow-y-auto h-[600px] pb-2 rounded-xl relative">
           <BingNewsContainer
             containerTitle="The Verge"
             organization={organization}
@@ -88,7 +91,7 @@ export const MainContent = ({
             organization={organization}
             domain="bloomberg.com"
           />
-        </div>*/}
+        </div>
       </div>
     </div>
   )
