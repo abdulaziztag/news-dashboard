@@ -115,6 +115,14 @@ export const confirmEmail = async (req: Request, res: Response) => {
   }
 }
 
+export const checkAuth = async (req: Request, res: Response) => {
+  try {
+    res.send(req.user)
+  } catch (e) {
+    res.status(500).send({ message: MESSAGE.DEFAULT_ERROR })
+  }
+}
+
 export const addAdmin = async (req: Request, res: Response) => {
   try {
     await User.findOneAndUpdate(

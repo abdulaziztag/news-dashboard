@@ -1,5 +1,5 @@
 import express from 'express'
-import { addAdmin, confirmEmail, SignIn, SignUp } from '@/controllers/authControllers'
+import { addAdmin, checkAuth, confirmEmail, SignIn, SignUp } from '@/controllers/authControllers'
 import passport from 'passport'
 
 const router = express.Router()
@@ -9,4 +9,5 @@ router.post('/signIn', SignIn)
 router.post('/signUp', SignUp)
 router.post('/confirm', confirmEmail)
 router.post('/addAdmin', auth, addAdmin)
+router.get('/check', auth, checkAuth)
 export const authRoutes = router
