@@ -23,8 +23,7 @@ export const sendConfirmationEmail = async ({ firstName, lastName, email, confir
       subject: 'Please confirm your account',
       html: `<h1>Email Confirmation</h1>
         <h2>Hello ${firstName} ${lastName}</h2>
-        <p>Thank you for subscribing. Please confirm your email by this code: ${confirmationCode}</p>
-        <a href="#"> Click here</a>
+        <p>Thank you for subscribing. Please confirm your email by following this link: <a href="https://relly.ai/auth/confirmation/${confirmationCode}"></a></p>
         </div>`,
     })
     return true

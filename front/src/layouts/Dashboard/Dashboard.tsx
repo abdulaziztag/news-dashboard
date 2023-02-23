@@ -28,7 +28,6 @@ export const Dashboard = () => {
       })
       navigate('/auth/signin')
     },
-    staleTime: Infinity,
   })
 
   const { isLoading, isRefetching } = useQuery({

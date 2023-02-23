@@ -7,6 +7,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import passport from 'passport'
 import { authRoutes, organizationRoutes, userRoutes } from '@/routes'
+import * as path from 'path'
 
 dotenv.config()
 
@@ -22,17 +23,17 @@ mongoose.connect(mongoUrl, (error) => {
 })
 app.use(passport.initialize())
 import '@/midllewares/passport'
-app.use(helmet())
+// app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
 app.use(express.json())
-
+app.use(express.static(path.join(__dirname, '../public')))
 app.use('/api/auth', authRoutes)
 app.use('/api/organization', organizationRoutes)
 app.use('/api/user', userRoutes)
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server')
+app.get('/*', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
 app.listen(port, () => {

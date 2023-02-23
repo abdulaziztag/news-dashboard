@@ -44,7 +44,6 @@ export const OrganizationPage = () => {
       )
     },
     enabled: isLoggedIn,
-    staleTime: Infinity,
   })
 
   const subscribeMutation = useMutation({
