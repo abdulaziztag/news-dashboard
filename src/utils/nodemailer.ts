@@ -23,7 +23,8 @@ export const sendConfirmationEmail = async ({ firstName, lastName, email, confir
       subject: 'Please confirm your account',
       html: `<h1>Email Confirmation</h1>
         <h2>Hello ${firstName} ${lastName}</h2>
-        <p>Thank you for subscribing. Please confirm your email by following this link: <a href="https://relly.ai/auth/confirmation/${confirmationCode}"></a></p>
+        <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+        <a href=https://rella.herokuapp.com/auth/confirmation/${confirmationCode}> Click here</a>
         </div>`,
     })
     return true
