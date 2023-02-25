@@ -8,6 +8,8 @@ import { SignIn } from 'pages/SignIn'
 import { SignUp } from 'pages/SignUp'
 import { ConfirmationPage } from 'pages/ConfirmationPage'
 import { OrganizationPage } from 'pages/OrganizationPage'
+import { ProfilePage } from 'pages/ProfilePage'
+import { RemindersPage } from 'pages/RemindersPage'
 
 export const router = createBrowserRouter([
   {
@@ -47,11 +49,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <div>Profile</div>,
+        element: <ProfilePage />,
       },
       {
         path: 'organization/:organizationId',
         element: <OrganizationPage />,
+      },
+      {
+        path: 'reminders',
+        element: <RemindersPage />,
       },
     ],
   },
