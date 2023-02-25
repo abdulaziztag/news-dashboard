@@ -28,6 +28,9 @@ export const OrganizationPage = () => {
       setIsLoggedIn(true)
     },
     onError: () => {
+      toast('Please sign in', {
+        type: 'error',
+      })
       navigate('/auth/signin')
     },
   })
