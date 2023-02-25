@@ -24,6 +24,7 @@ const alias: AliasOptions = getAlias([
   'router',
   'layouts',
   'interfaces',
+  'hooks',
 ])
 
 // https://vitejs.dev/config/
