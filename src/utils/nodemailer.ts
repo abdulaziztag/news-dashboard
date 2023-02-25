@@ -24,7 +24,7 @@ export const sendConfirmationEmail = async ({ firstName, lastName, email, confir
       html: `<h1>Email Confirmation</h1>
         <h2>Hello ${firstName} ${lastName}</h2>
         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-        <a href=https://rella.herokuapp.com/auth/confirmation/${confirmationCode}> Click here</a>
+        <a href=https://rella.herokuapp.com/auth/confirmation/${confirmationCode}>Click here</a>
         </div>`,
     })
     return true
