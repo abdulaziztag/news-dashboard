@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { DesktopProps } from './types'
 import { ClipLoader } from 'react-spinners'
 import { colors } from 'constants/colors'
+import image from 'assets/rella_logo.png'
+
 export const DesktopNav = ({
   subscriptions,
   activeOrganization,
@@ -13,11 +15,7 @@ export const DesktopNav = ({
       {/* Sidebar component, swap this element with another sidebar if you like */}
       <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
         <div className="flex flex-shrink-0 items-center px-4">
-          <img
-            className="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+          <img className="h-8 w-auto" src={image} alt="Your Company" />
         </div>
         <div className="mt-5 flex flex-grow flex-col">
           <div className="border-b-2 border-b-gray-300 text-xl pb-2 my-1 px-1 mx-2 text-gray-500">

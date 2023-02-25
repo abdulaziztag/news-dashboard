@@ -12,6 +12,10 @@ import { ResponseError } from 'types/ErrorsType'
 import { toast } from 'react-toastify'
 import { Spinner } from 'components/Generic/Spinner'
 import { saveToken } from 'helpers/token'
+import { useDocumentTitle } from 'hooks'
+import image from 'assets/rella_logo.png'
+import { ClipLoader } from 'react-spinners'
+import { useState } from 'react'
 
 export const SignIn = () => {
   const navigate = useNavigate()
@@ -42,11 +46,7 @@ export const SignIn = () => {
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
-          className="mx-auto h-12 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
+        <img className="mx-auto h-16 w-auto" src={image} alt="Rella" />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           Sign in to your account
         </h2>

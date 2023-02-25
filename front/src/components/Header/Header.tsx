@@ -7,6 +7,7 @@ import { Fragment } from 'react'
 import { Button } from 'components/Generic/Button'
 import { ClipLoader } from 'react-spinners'
 import { colors } from 'constants/colors'
+import image from 'assets/rella_logo.png'
 
 export const Header = ({
   isLoggedIn,
@@ -25,12 +26,8 @@ export const Header = ({
           <div className="flex flex-1 items-center">
             <div className="flex w-full items-center justify-between md:w-auto">
               <Link to={routePaths.home}>
-                <span className="sr-only">Your Company</span>
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/mark.svg?from-color=teal&from-shade=200&to-color=cyan&to-shade=400&toShade=400"
-                  alt=""
-                />
+                <span className="sr-only">Rella</span>
+                <img className="h-8 w-auto sm:h-10" src={image} alt="" />
               </Link>
               <div className="-mr-2 flex items-center md:hidden">
                 <Popover.Button className="focus-ring-inset inline-flex items-center justify-center rounded-md bg-gray-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
@@ -123,16 +120,21 @@ export const Header = ({
                 ))}
               </div>
               <div className="mt-6 px-5">
-                <Button variant="info" className="w-full text-center">
-                  Sign Up
-                </Button>
+                <Link to={routePaths.signUp}>
+                  <Button variant="info" className="w-full text-center">
+                    Sign Up
+                  </Button>
+                </Link>
               </div>
               <div className="mt-6 px-5">
                 <p className="text-center text-base font-medium text-gray-500">
                   Existing customer?{' '}
-                  <a href="#" className="text-gray-900 hover:underline">
-                    Login
-                  </a>
+                  <Link
+                    to={routePaths.signIn}
+                    className="text-gray-900 hover:underline"
+                  >
+                    Sign In
+                  </Link>
                 </p>
               </div>
             </div>

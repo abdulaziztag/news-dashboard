@@ -6,6 +6,7 @@ import { MobileNavProps } from './types'
 import { Link } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { colors } from 'constants/colors'
+import image from 'assets/rella_logo.png'
 
 export const MobileNav = ({
   subscriptions,
@@ -68,11 +69,7 @@ export const MobileNav = ({
                 </div>
               </Transition.Child>
               <div className="flex flex-shrink-0 items-center px-4">
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                  alt="Your Company"
-                />
+                <img className="h-8 w-auto" src={image} alt="Your Company" />
               </div>
               <div className="mt-5 h-0 flex-1 overflow-y-auto">
                 <div className="border-b-2 border-b-gray-300 my-1 px-2 mx-2 text-gray-500">
