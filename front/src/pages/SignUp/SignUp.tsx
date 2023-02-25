@@ -9,7 +9,6 @@ import { routePaths } from 'router/routes'
 import { useMutation } from '@tanstack/react-query'
 import { signUp } from 'api/auth'
 import { toast } from 'react-toastify'
-import { Spinner } from 'components/Generic/Spinner'
 import { ResponseError } from 'types/ErrorsType'
 import image from 'assets/rella_logo.png'
 import { useDocumentTitle } from 'hooks'
@@ -24,6 +23,7 @@ export const SignUp = () => {
     resolver: zodResolver(registerUserSchema),
   })
   const navigate = useNavigate()
+  useDocumentTitle('Sign Up')
 
   const { mutate, isLoading } = useMutation({
     mutationFn: signUp,
@@ -137,7 +137,7 @@ export const SignUp = () => {
             className="w-full h-12"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : 'Sign up'}
+            {isLoading ? <ClipLoader /> : 'Sign up'}
           </Button>
         </form>
 

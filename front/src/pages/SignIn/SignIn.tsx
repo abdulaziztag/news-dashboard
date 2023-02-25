@@ -10,7 +10,6 @@ import { useMutation } from '@tanstack/react-query'
 import { signIn } from 'api/auth'
 import { ResponseError } from 'types/ErrorsType'
 import { toast } from 'react-toastify'
-import { Spinner } from 'components/Generic/Spinner'
 import { saveToken } from 'helpers/token'
 import { useDocumentTitle } from 'hooks'
 import image from 'assets/rella_logo.png'
@@ -19,6 +18,7 @@ import { useState } from 'react'
 
 export const SignIn = () => {
   const navigate = useNavigate()
+  useDocumentTitle('Sign in')
   const {
     register,
     handleSubmit,
@@ -27,10 +27,13 @@ export const SignIn = () => {
     resolver: zodResolver(signInSchema),
   })
 
+  const [remember, setRemember] = useState<boolean>(false)
+
   const { mutate, isLoading } = useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
-      saveToken(data.data.token)
+      const tokenAge = remember ? undefined : 60 * 60
+      saveToken(data.data.token, tokenAge)
       navigate(routePaths.dashboard)
     },
     onError: (error: ResponseError) => {
@@ -83,13 +86,14 @@ export const SignIn = () => {
             )}
           </div>
 
-          {/*TODO: Remember me*/}
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
+                onChange={() => setRemember((prevState) => !prevState)}
+                checked={remember}
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <label
@@ -107,7 +111,7 @@ export const SignIn = () => {
             type="button"
             className="w-full h-12"
           >
-            {isLoading ? <Spinner /> : 'Sign in'}
+            {isLoading ? <ClipLoader /> : 'Sign in'}
           </Button>
         </form>
 
