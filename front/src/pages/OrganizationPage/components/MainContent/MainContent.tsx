@@ -18,8 +18,7 @@ export const MainContent = ({
   const [width, setWidth] = useState(0)
 
   useLayoutEffect(() => {
-    // @ts-ignore
-    setWidth(blockRef.current.offsetWidth)
+    blockRef.current && setWidth(blockRef.current.offsetWidth)
   }, [])
 
   const [loading, setLoading] = useState(true)
@@ -36,11 +35,11 @@ export const MainContent = ({
         </h1>
         {!organizationLoader && (
           <Button
-            variant={isSubscribed ? 'info' : 'success'}
+            variant={isSubscribed ? 'light' : 'success'}
             onClick={toggleSubscription}
           >
             {subscriptionLoader ? (
-              <ClipLoader color={colors.white} />
+              <ClipLoader color={isSubscribed ? '#000' : colors.white} />
             ) : isSubscribed ? (
               'Subscribed'
             ) : (

@@ -4,10 +4,14 @@ import cx from 'classnames'
 import { Link, useNavigate } from 'react-router-dom'
 import { removeToken } from 'helpers/token'
 import { routePaths } from 'router/routes'
+import { UserCircleIcon } from '@heroicons/react/24/outline'
 
 export const ProfileMenu = () => {
   const navigate = useNavigate()
-  const userNavigation = [{ name: 'Your Profile', href: '/dashboard' }]
+  const userNavigation = [
+    { name: 'Your Profile', href: routePaths.dashboard },
+    { name: 'Reminders', href: routePaths.reminders },
+  ]
 
   const signOut = () => {
     removeToken()
@@ -19,11 +23,7 @@ export const ProfileMenu = () => {
       <div>
         <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <span className="sr-only">Open user menu</span>
-          <img
-            className="h-8 w-8 rounded-full"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
+          <UserCircleIcon className="h-8 text-gray-700" />
         </Menu.Button>
       </div>
       <Transition

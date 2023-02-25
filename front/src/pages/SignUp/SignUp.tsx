@@ -13,6 +13,7 @@ import { ResponseError } from 'types/ErrorsType'
 import image from 'assets/rella_logo.png'
 import { useDocumentTitle } from 'hooks'
 import { ClipLoader } from 'react-spinners'
+import { colors } from 'constants/colors'
 
 export const SignUp = () => {
   const {
@@ -137,7 +138,7 @@ export const SignUp = () => {
             className="w-full h-12"
             disabled={isLoading}
           >
-            {isLoading ? <ClipLoader /> : 'Sign up'}
+            {isLoading ? <ClipLoader color={colors.white} /> : 'Sign up'}
           </Button>
         </form>
 

@@ -15,6 +15,7 @@ import { useDocumentTitle } from 'hooks'
 import image from 'assets/rella_logo.png'
 import { ClipLoader } from 'react-spinners'
 import { useState } from 'react'
+import { colors } from 'constants/colors'
 
 export const SignIn = () => {
   const navigate = useNavigate()
@@ -111,7 +112,7 @@ export const SignIn = () => {
             type="button"
             className="w-full h-12"
           >
-            {isLoading ? <ClipLoader /> : 'Sign in'}
+            {isLoading ? <ClipLoader color={colors.white} /> : 'Sign in'}
           </Button>
         </form>
 
