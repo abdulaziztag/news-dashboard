@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAll, addOrganization, getOrganizationSources, searchFromOrganizations } from '@/controllers/organizationControllers'
+import { getAll, addOrganization, getOrganizationSources, searchFromOrganizations } from '@/controllers/organizationControllers.js'
 import passport from 'passport'
 
 const router = express.Router()

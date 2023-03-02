@@ -1,4 +1,3 @@
-import 'module-alias/register'
 import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
@@ -6,9 +5,14 @@ import morgan from 'morgan'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import passport from 'passport'
-import { authRoutes, organizationRoutes, userRoutes } from '@/routes'
+import { authRoutes, organizationRoutes, userRoutes, chatRoutes } from '@/routes/index.js'
+import schedule from 'node-schedule'
 import * as path from 'path'
+import { fileURLToPath } from 'url'
+import { cronExpression, handleSchedule } from '@/utils/scheduler.js'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 dotenv.config()
 
 const app: Express = express()
@@ -21,16 +25,24 @@ mongoose.connect(mongoUrl, (error) => {
   if (error) throw error
   console.log('Connected To Mongo')
 })
+
+// Scheduler
+schedule.scheduleJob(cronExpression, handleSchedule)
+
+// Middlewares
 app.use(passport.initialize())
-import '@/midllewares/passport'
+import '@/midllewares/passport.js'
 // app.use(helmet())
 app.use(morgan('tiny'))
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '../public')))
+
+// Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/organization', organizationRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api', chatRoutes)
 
 app.get('/*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))

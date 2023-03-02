@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { MESSAGE } from '@/utils'
-import { Organization } from '@/models/Organization'
+import { MESSAGE } from '@/utils/index.js'
+import { Organization } from '@/models/index.js'
 
 export const getAll = async (req: Request, res: Response) => {
   try {

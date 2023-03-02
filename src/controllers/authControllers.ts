@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { HTTP_STATUS, MESSAGE } from '@/utils'
-import { IUser } from '@/interfaces'
-import { User } from '@/models'
+import { HTTP_STATUS, MESSAGE } from '@/utils/index.js'
+import { IUser } from '@/interfaces/index.js'
+import { User } from '@/models/index.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 
-import { sendConfirmationEmail } from '@/utils/nodemailer'
+import { sendConfirmationEmail } from './mailControllers.js'
 
 export const SignIn = async (req: Request, res: Response) => {
   try {

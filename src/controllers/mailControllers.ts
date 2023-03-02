@@ -1,13 +1,13 @@
+import { IReminderForEmail, UserForEmail } from '@/interfaces/index.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
-import { UserForEmail } from '@/interfaces'
 
 dotenv.config()
 
 const user = process.env.USER
 const pass = process.env.PASSWORD
 
-const transport = nodemailer.createTransport({
+export const transport = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
     user,
@@ -29,6 +29,18 @@ export const sendConfirmationEmail = async ({ firstName, lastName, email, confir
     })
     return true
   } catch (e) {
+    console.log(e)
     return false
   }
+}
+
+export const sendScheduledReminders = async ({ email, value, organizationName, notes = '' }: IReminderForEmail) => {
+  await transport.sendMail({
+    from: user,
+    to: email,
+    subject: `Scheduled reminder about ${organizationName} ${notes}`,
+    html: `<div>${value.map((key) => {
+      return `<div>${key.name}</div>`
+    })}</div>`,
+  })
 }

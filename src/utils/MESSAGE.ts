@@ -11,4 +11,6 @@ export enum MESSAGE {
   UNSUBSCRIBED = 'Successfully unsubscribed!',
   ORGANIZATION_NOT_FOUND = 'Organization not found',
   ALREADY_SUB = 'Already subscribed!',
+  REMINDER_SUCCESS = 'Reminder set successfully!',
+  DELETED_SUCCESSFULLY = 'Successfully deleted!',
 }
