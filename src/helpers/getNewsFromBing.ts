@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as process from 'process'
-import { BingResponseInterface } from '@/interfaces'
+import { BingResponseInterface } from '../interfaces/index.js'
 
 export const getNewsFromBing = async (organizationName: string, source: string) => {
   return await axios.get<{ value: BingResponseInterface[] }>('https://api.bing.microsoft.com/v7.0/news/search', {

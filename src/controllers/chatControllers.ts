@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { HTTP_STATUS, MESSAGE } from '@/utils/index.js'
+import { HTTP_STATUS, MESSAGE } from '../utils/index.js'
 import { ChatGPTAPI } from 'chatgpt'
 
 export const askFromGPT = async (req: Request, res: Response) => {

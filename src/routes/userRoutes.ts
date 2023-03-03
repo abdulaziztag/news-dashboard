@@ -1,5 +1,5 @@
 import express from 'express'
-import { deleteReminder, getRemindersByUID, getSubscriptionsByUID, setReminder, subscribe, unSubscribe } from '@/controllers/userControllers.js'
+import { deleteReminder, getRemindersByUID, getSubscriptionsByUID, setReminder, subscribe, unSubscribe } from '../controllers/userControllers.js'
 import passport from 'passport'
 
 const router = express.Router()

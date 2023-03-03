@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
-import { User } from '@/models/index.js'
-import { MESSAGE } from '@/utils/index.js'
-import { IReminder } from '@/interfaces/index.js'
-import { Reminder } from '@/models/index.js'
+import { User, Reminder } from '../models/index.js'
+import { MESSAGE } from '../utils/index.js'
+import { IReminder } from '../interfaces/index.js'
 
 export const getSubscriptionsByUID = async (req: Request, res: Response) => {
   try {

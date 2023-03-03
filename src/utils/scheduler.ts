@@ -1,7 +1,6 @@
-import { Reminder } from '@/models/Reminder.js'
-import { Organization } from '@/models/Organization.js'
-import { getNewsFromBing } from '@/helpers/getNewsFromBing.js'
-import { sendScheduledReminders } from '@/controllers/mailControllers.js'
+import { Organization, Reminder } from '../models/index.js'
+import { getNewsFromBing } from '../helpers/index.js'
+import { sendScheduledReminders } from '../controllers/mailControllers.js'
 
 export const handleSchedule = async () => {
   try {

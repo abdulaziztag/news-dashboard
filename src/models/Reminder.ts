@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { IReminder } from '@/interfaces/index.js'
+import { IReminder } from '../interfaces/index.js'
 
 const reminderSchema = new Schema<IReminder>({
   email: {

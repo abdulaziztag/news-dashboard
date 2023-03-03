@@ -1,4 +1,4 @@
-import { askFromGPT } from '@/controllers/chatControllers.js'
+import { askFromGPT } from '../controllers/chatControllers.js'
 import express from 'express'
 import passport from 'passport'
 

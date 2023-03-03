@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { IOrganization } from '@/interfaces/IOrganization.js'
+import { IOrganization } from '../interfaces/IOrganization.js'
 
 const organizationSchema = new Schema<IOrganization>(
   {

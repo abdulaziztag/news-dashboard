@@ -1,4 +1,4 @@
-import { IReminderForEmail, UserForEmail } from '@/interfaces/index.js'
+import { IReminderForEmail, UserForEmail } from '../interfaces/index.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 
