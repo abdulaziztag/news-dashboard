@@ -23,6 +23,10 @@ const reminderSchema = new Schema<IReminder>({
     type: Number,
     required: false,
   },
+  title: {
+    type: String,
+    required: false,
+  },
 })
 
 export const Reminder = model<IReminder>('Reminder', reminderSchema)

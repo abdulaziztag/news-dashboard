@@ -108,6 +108,7 @@ export const getRemindersByUID = async (req: Request, res: Response) => {
           organizationId: 1,
           notes: 1,
           repeatValue: 1,
+          title: 1,
         },
       },
     ])

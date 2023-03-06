@@ -6,6 +6,7 @@ export interface IReminder {
   expiresDate: number
   notes?: string
   repeatValue?: number
+  title?: string
 }
 
 export interface IReminderForEmail {
