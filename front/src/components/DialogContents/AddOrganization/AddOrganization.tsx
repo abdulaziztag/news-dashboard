@@ -9,8 +9,6 @@ import { addOrganization } from 'api/organization'
 import { useNavigate } from 'react-router-dom'
 import { routePaths } from 'router/routes'
 import { toast } from 'react-toastify'
-import { ClipLoader } from 'react-spinners'
-import { colors } from 'constants/colors'
 
 export const AddOrganization = ({ onClose }: AddOrganizationProps) => {
   const navigate = useNavigate()
@@ -92,8 +90,8 @@ export const AddOrganization = ({ onClose }: AddOrganizationProps) => {
         <Button variant="light" onClick={onClose}>
           Close
         </Button>
-        <Button onClick={handleSubmit(submitForm)} disabled={isLoading}>
-          {isLoading ? <ClipLoader color={colors.white} /> : 'Add organization'}
+        <Button onClick={handleSubmit(submitForm)} loader={isLoading}>
+          Add organization
         </Button>
       </div>
     </form>

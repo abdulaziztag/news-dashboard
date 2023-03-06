@@ -6,4 +6,5 @@ export type ButtonVariant = 'primary' | 'error' | 'success' | 'info' | 'light'
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: ButtonSize
   variant?: ButtonVariant
+  loader?: boolean
 }

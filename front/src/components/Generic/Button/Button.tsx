@@ -2,12 +2,15 @@ import { ButtonProps } from './types'
 import cx from 'classnames'
 import { ButtonSizes } from './utils/sizes'
 import { ButtonVariants } from './utils/variants'
+import { ClipLoader } from 'react-spinners'
+import { colors } from 'constants/colors'
 export const Button = ({
   size = 'md',
   variant = 'primary',
   children,
   className,
   type = 'button',
+  loader = false,
   ...restProps
 }: ButtonProps) => {
   const classes = cx(
@@ -18,8 +21,8 @@ export const Button = ({
   )
 
   return (
-    <button type={type} className={classes} {...restProps}>
-      {children}
+    <button type={type} disabled={loader} className={classes} {...restProps}>
+      {loader ? <ClipLoader size={25} color={colors.white} /> : children}
     </button>
   )
 }
