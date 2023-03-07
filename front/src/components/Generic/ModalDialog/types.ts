@@ -5,4 +5,5 @@ export type ModalDialogProps = {
   actions?: string | JSX.Element | boolean
   onClose: () => void
   onSubmit?: () => void
+  submitLoader?: boolean
 }

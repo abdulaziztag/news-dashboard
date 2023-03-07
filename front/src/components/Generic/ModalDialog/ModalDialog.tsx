@@ -10,6 +10,7 @@ export const ModalDialog = ({
   title,
   onClose,
   onSubmit,
+  submitLoader,
 }: ModalDialogProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -52,7 +53,9 @@ export const ModalDialog = ({
                       <Button onClick={onClose} variant="light">
                         Close
                       </Button>
-                      <Button onClick={onSubmit}>Submit</Button>
+                      <Button onClick={onSubmit} loader={submitLoader}>
+                        Submit
+                      </Button>
                     </div>
                   )}
                 </div>
