@@ -1,24 +1,20 @@
-import { CTASection } from './components/CTASection'
-import { BlogSection } from './components/BlogSection'
-import { TestimonialSection } from './components/TestimonialSection'
+import { Pricing } from './components/Pricing'
+import { Stats } from './components/Stats'
 import { FeatureSection } from './components/FeatureSection'
-import { ScreenshotSection } from './components/ScreenshotSection'
-import { HeadSection } from './components/HeadSection'
+import { HeroSection } from './components/HeroSection'
 
 export const HomePage = () => {
   return (
     <main>
-      <HeadSection />
-
-      <ScreenshotSection />
+      <HeroSection />
 
       <FeatureSection />
 
-      <TestimonialSection />
+      <Stats />
 
-      <BlogSection />
+      <Pricing />
 
-      <CTASection />
+      {/*<CTASection />*/}
     </main>
   )
 }

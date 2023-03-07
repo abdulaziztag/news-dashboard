@@ -18,7 +18,7 @@ export const Header = ({
 }) => {
   return (
     <Popover as="header" className="relative">
-      <div className="bg-gray-900 pt-6">
+      <div className="bg-white pt-6">
         <nav
           className="relative mx-auto flex max-w-7xl items-center justify-between px-6"
           aria-label="Global"
@@ -30,7 +30,7 @@ export const Header = ({
                 <img className="h-8 w-auto sm:h-10" src={image} alt="" />
               </Link>
               <div className="-mr-2 flex items-center md:hidden">
-                <Popover.Button className="focus-ring-inset inline-flex items-center justify-center rounded-md bg-gray-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                <Popover.Button className="focus-ring-inset inline-flex bg-primary text-white items-center justify-center rounded-md p-2 hover:bg-primary/60 focus:outline-none focus:ring-2 focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </Popover.Button>
@@ -41,7 +41,7 @@ export const Header = ({
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-base font-medium text-white hover:text-gray-300"
+                  className="text-base font-medium text-black hover:text-gray-300"
                 >
                   {item.name}
                 </a>
@@ -55,7 +55,7 @@ export const Header = ({
               <>
                 <Link
                   to={routePaths.signIn}
-                  className="text-base font-medium text-white hover:text-gray-300"
+                  className="text-base font-medium text-black hover:text-gray-400"
                 >
                   Sign In
                 </Link>
@@ -89,16 +89,12 @@ export const Header = ({
       >
         <Popover.Panel
           focus
-          className="absolute inset-x-0 top-0 origin-top transform p-2 transition md:hidden"
+          className="absolute z-10 inset-x-0 top-0 origin-top transform p-2 transition md:hidden"
         >
           <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
             <div className="flex items-center justify-between px-5 pt-4">
               <div>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?from-color=teal&from-shade=200&to-color=cyan&to-shade=400&toShade=400"
-                  alt=""
-                />
+                <img className="h-8 w-auto sm:h-10" src={image} alt="" />
               </div>
               <div className="-mr-2">
                 <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
@@ -121,9 +117,7 @@ export const Header = ({
               </div>
               <div className="mt-6 px-5">
                 <Link to={routePaths.signUp}>
-                  <Button variant="info" className="w-full text-center">
-                    Sign Up
-                  </Button>
+                  <Button className="w-full text-center">Sign Up</Button>
                 </Link>
               </div>
               <div className="mt-6 px-5">
