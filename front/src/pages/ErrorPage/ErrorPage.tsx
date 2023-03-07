@@ -1,4 +1,4 @@
-import { Button } from '../../components/Generic/Button'
+import { Button } from 'components/Generic/Button'
 import { Link } from 'react-router-dom'
 
 export const ErrorPage = () => {
