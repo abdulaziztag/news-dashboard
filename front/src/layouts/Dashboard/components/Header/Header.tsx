@@ -4,7 +4,6 @@ import { HeaderProps } from './types'
 import { ModalDialog } from 'components/Generic/ModalDialog'
 import { AddOrganization } from 'components/DialogContents/AddOrganization'
 import { SearchBar } from 'components/SearchBar/SearchBar'
-import { ProfileMenu } from 'components/ProfileMenu'
 
 export const Header = ({ setSidebarOpen }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -30,9 +29,6 @@ export const Header = ({ setSidebarOpen }: HeaderProps) => {
       <div className="flex flex-1 justify-between px-4">
         <div className="flex-col flex-1 w-full h-full">
           <SearchBar openModal={() => setIsOpen(true)} />
-        </div>
-        <div className="ml-4 flex items-center md:ml-6">
-          <ProfileMenu />
         </div>
       </div>
     </div>
