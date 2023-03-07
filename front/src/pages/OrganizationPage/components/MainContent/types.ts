@@ -4,6 +4,5 @@ export type MainContentProps = {
   isSubscribed: boolean
   organization: Organization
   subscriptionLoader: boolean
-  organizationLoader: boolean
   toggleSubscription: () => void
 }
