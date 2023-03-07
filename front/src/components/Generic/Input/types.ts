@@ -2,7 +2,7 @@ import { DetailedHTMLProps, InputHTMLAttributes, Ref } from 'react'
 
 export type InputSize = 'lg' | 'md' | 'sm'
 
-export type InputTypes = 'text' | 'email' | 'password' | 'file'
+export type InputTypes = 'text' | 'email' | 'password' | 'file' | 'number'
 
 export type InputProps = {
   id: string
