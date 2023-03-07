@@ -34,7 +34,11 @@ app.use(passport.initialize())
 import './src/midllewares/passport.js'
 // app.use(helmet())
 app.use(morgan('tiny'))
-app.use(cors())
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://rella.ai', 'https://rella.herokuapp.com'],
+  }),
+)
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '../public')))
 
