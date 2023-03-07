@@ -27,6 +27,14 @@ export const searchOrganization = async (query: string) => {
 
 export const getSourceFromBing = async ({ queryKey }: QueryFunctionContext) => {
   const [, companyTitle, source] = queryKey
+  const currentDate = new Date()
+  const threeMonthsAgo = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() - 24,
+    1
+  )
+  const sinceParam = Math.floor(threeMonthsAgo.getTime() / 1000)
+
   return await axios.get<SearchResponse>(
     'https://api.bing.microsoft.com/v7.0/news/search',
     {
@@ -36,12 +44,11 @@ export const getSourceFromBing = async ({ queryKey }: QueryFunctionContext) => {
       params: {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         q: `site:${source} ${companyTitle}`,
-        count: 11,
-        offset: 0,
+        count: 15,
         mkt: 'en-US',
-        safeSearch: 'Moderate',
-        category: 'News',
-        freshness: 'Month',
+        safeSearch: 'Off',
+        sortBy: 'Date',
+        since: sinceParam,
       },
     }
   )
