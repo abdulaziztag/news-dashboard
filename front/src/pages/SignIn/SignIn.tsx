@@ -13,9 +13,7 @@ import { toast } from 'react-toastify'
 import { saveToken } from 'helpers/token'
 import { useDocumentTitle } from 'hooks'
 import image from 'assets/rella_logo.png'
-import { ClipLoader } from 'react-spinners'
 import { useState } from 'react'
-import { colors } from 'constants/colors'
 
 export const SignIn = () => {
   const navigate = useNavigate()
@@ -111,8 +109,9 @@ export const SignIn = () => {
             variant="primary"
             type="button"
             className="w-full h-12"
+            loader={isLoading}
           >
-            {isLoading ? <ClipLoader color={colors.white} /> : 'Sign in'}
+            Sign in
           </Button>
         </form>
 
