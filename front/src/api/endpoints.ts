@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://rella.herokuapp.com/api'
+export const BASE_URL = 'http://localhost:3000/api'
 export const endpoints = {
   signIn: '/auth/signIn',
   signUp: '/auth/signUp',
@@ -7,7 +7,9 @@ export const endpoints = {
   subscriptions: '/user/subscriptions',
   subscribe: '/user/subscribe',
   unsubscribe: '/user/unsubscribe',
+  reminder: '/user/reminder',
   getOrganizationInfo: '/organization/get',
   searchOrganization: '/organization/search',
   addOrganization: '/organization/add',
+  generate: '/generate',
 }
