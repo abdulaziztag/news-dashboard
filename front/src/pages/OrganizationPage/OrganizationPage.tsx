@@ -1,85 +1,51 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getOrganizationById } from 'api/organization'
-import { useState } from 'react'
-import { Organization } from 'interfaces'
 import { ClipLoader } from 'react-spinners'
 import { colors } from 'constants/colors'
 import { toast } from 'react-toastify'
-import { getSubscriptions, subscribe, unsubscribe } from 'api/user'
+import { subscribe, unsubscribe } from 'api/user'
 import { MainContent } from './components/MainContent'
-import { checkAuth } from 'api/auth'
 import { routePaths } from 'router/routes'
+import { useSubscriptions } from 'hooks'
 
 export const OrganizationPage = () => {
   const { organizationId } = useParams<keyof { organizationId: string }>() as {
     organizationId: string
   }
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const [organization, setOrganization] = useState<Organization>()
-  const [subscriptions, setSubscriptions] = useState<string[]>([])
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-
-  useQuery({
-    queryKey: ['checkAuth'],
-    queryFn: checkAuth,
-    onSuccess: () => {
-      setIsLoggedIn(true)
-    },
-    onError: () => {
-      toast('Please sign in', {
-        type: 'error',
-      })
-      navigate('/auth/signin')
-    },
-  })
-
-  const subsQuery = useQuery({
-    queryKey: ['subscriptions'],
-    queryFn: getSubscriptions,
-    onSuccess: (data) => {
-      setSubscriptions(data.data.subscriptionsInfo.map((sub) => sub._id))
-      setIsSubscribed(
-        data.data.subscriptionsInfo
-          .map((sub) => sub._id)
-          .includes(organizationId)
-      )
-    },
-    enabled: isLoggedIn,
-  })
+  const { subscriptions } = useSubscriptions()
 
   const subscribeMutation = useMutation({
     mutationFn: subscribe,
     onSuccess: async () => {
-      await subsQuery.refetch()
+      await queryClient.invalidateQueries(['subscriptions'])
     },
   })
 
   const unsubscribeMutation = useMutation({
     mutationFn: unsubscribe,
     onSuccess: async () => {
-      await subsQuery.refetch()
+      await queryClient.invalidateQueries(['subscriptions'])
     },
   })
 
-  const { isFetching, isLoading } = useQuery({
+  const { data, isFetching, isLoading } = useQuery({
     queryKey: ['organization', organizationId],
     queryFn: getOrganizationById,
-    onSuccess: (data) => {
-      setIsSubscribed(subscriptions.includes(data.data._id))
-      setOrganization(data.data)
-    },
     onError: (error: TypeError) => {
       toast(error.message, {
         type: 'error',
       })
       navigate(routePaths.dashboard)
     },
-    enabled: subsQuery.isFetched,
   })
 
   const toggleSubscription = () => {
+    const isSubscribed = subscriptions
+      .map((sub) => sub._id)
+      .includes(data ? data.data._id : '')
     if (!isSubscribed) subscribeMutation.mutate(organizationId)
     else unsubscribeMutation.mutate(organizationId)
   }
@@ -89,14 +55,17 @@ export const OrganizationPage = () => {
       {isFetching || isLoading ? (
         <ClipLoader size={150} color={colors.primary} />
       ) : (
-        organization && (
+        data && (
           <MainContent
             subscriptionLoader={
               unsubscribeMutation.isLoading || subscribeMutation.isLoading
             }
-            organizationLoader={isFetching || isLoading}
-            organization={organization}
-            isSubscribed={isSubscribed}
+            organization={data.data}
+            isSubscribed={
+              data
+                ? subscriptions.map((sub) => sub._id).includes(data.data._id)
+                : false
+            }
             toggleSubscription={toggleSubscription}
           />
         )
